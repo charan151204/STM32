@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;12_ADC_INTERRUPT/08_ADC_CONT_CONVERSION.ioc&apos; to &apos;12_ADC_INTERRUPT.ioc&apos;" description="Rename resource &apos;08_ADC_CONT_CONVERSION.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="08_ADC_CONT_CONVERSION.ioc" name="12_ADC_INTERRUPT.ioc" stamp="1759222074520" updateReferences="true"/>
+</session>

@@ -1,0 +1,10 @@
+11:37:24 **** Incremental Build of configuration Debug for project 01_WORKSHEET_PUSH_BUTTON ****
+make -j8 all 
+arm-none-eabi-size  01_WORKSHEET_PUSH_BUTTON.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6712	     16	   1608	   8336	   2090	01_WORKSHEET_PUSH_BUTTON.elf
+Finished building: default.size.stdout
+ 
+
+11:37:25 Build Finished. 0 errors, 0 warnings. (took 356ms)
+

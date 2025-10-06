@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;04_USART_DMA/03_USART_POLLING.ioc&apos; to &apos;03_USART_DMA.ioc&apos;" description="Rename resource &apos;03_USART_POLLING.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="03_USART_POLLING.ioc" name="03_USART_DMA.ioc" stamp="1759123124621" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;04_USART_DMA/03_USART_DMA.ioc&apos; to &apos;04_USART_DMA.ioc&apos;" description="Rename resource &apos;03_USART_DMA.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="03_USART_DMA.ioc" name="04_USART_DMA.ioc" stamp="1759127040402" updateReferences="true"/>
+</session>

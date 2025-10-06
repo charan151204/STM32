@@ -1,0 +1,131 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * This is a simplified example for a single button toggle LED with debounce.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private define ------------------------------------------------------------*/
+#define DEBOUNCE_DELAY 50   // milliseconds
+#define BUTTON_PIN     GPIO_PIN_13
+#define BUTTON_PORT    GPIOC
+#define LED_PIN        GPIO_PIN_5
+#define LED_PORT       GPIOA
+
+/* Private variables ---------------------------------------------------------*/
+uint8_t lastButtonState = 1; // Released (active-low)
+uint32_t lastDebounceTime = 0;
+uint8_t ledState = 0;
+
+/* Function prototypes -------------------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+void toggleLED(void);
+
+/* Main ----------------------------------------------------------------------*/
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+
+    while (1)
+    {
+        uint8_t reading = HAL_GPIO_ReadPin(BUTTON_PORT, BUTTON_PIN);
+
+        // Debounce
+        if (reading != lastButtonState)
+        {
+            lastDebounceTime = HAL_GetTick();
+        }
+
+        if ((HAL_GetTick() - lastDebounceTime) > DEBOUNCE_DELAY)
+        {
+            // Detect short press (button active-low)
+            if (reading == GPIO_PIN_RESET && lastButtonState == GPIO_PIN_SET)
+            {
+                toggleLED();
+            }
+        }
+
+        lastButtonState = reading;
+    }
+}
+
+/* Toggle LED ---------------------------------------------------------------*/
+void toggleLED(void)
+{
+    ledState = !ledState;
+    HAL_GPIO_WritePin(LED_PORT, LED_PIN, ledState ? GPIO_PIN_SET : GPIO_PIN_RESET);
+}
+
+/* GPIO Initialization ------------------------------------------------------*/
+static void MX_GPIO_Init(void)
+{
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    // LED pin
+    GPIO_InitStruct.Pin = LED_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(LED_PORT, &GPIO_InitStruct);
+    HAL_GPIO_WritePin(LED_PORT, LED_PIN, GPIO_PIN_RESET);
+
+    // Button pin
+    GPIO_InitStruct.Pin = BUTTON_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(BUTTON_PORT, &GPIO_InitStruct);
+}
+
+/* System Clock Configuration ------------------------------------------------*/
+void SystemClock_Config(void)
+{
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+    HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+    RCC_OscInitStruct.PLL.PLLM = 1;
+    RCC_OscInitStruct.PLL.PLLN = 10;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
+    RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
+    RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+    HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK|
+                                  RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+    HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4);
+}
+
+/* Error Handler -------------------------------------------------------------*/
+void Error_Handler(void)
+{
+    __disable_irq();
+    while (1)
+    {
+    }
+}

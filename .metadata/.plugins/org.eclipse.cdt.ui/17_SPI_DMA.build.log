@@ -1,0 +1,10 @@
+11:09:10 **** Incremental Build of configuration Debug for project 17_SPI_DMA ****
+make -j8 all 
+arm-none-eabi-size  17_SPI_DMA.elf 
+   text	   data	    bss	    dec	    hex	filename
+  10340	     24	   1824	  12188	   2f9c	17_SPI_DMA.elf
+Finished building: default.size.stdout
+ 
+
+11:09:10 Build Finished. 0 errors, 0 warnings. (took 303ms)
+

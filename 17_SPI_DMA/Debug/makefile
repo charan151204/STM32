@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := SPI_DMA
+BUILD_ARTIFACT_NAME := 17_SPI_DMA
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-SPI_DMA.elf \
+17_SPI_DMA.elf \
 
 MAP_FILES += \
-SPI_DMA.map \
+17_SPI_DMA.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-SPI_DMA.list \
+17_SPI_DMA.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: SPI_DMA.elf secondary-outputs
+main-build: 17_SPI_DMA.elf secondary-outputs
 
 # Tool invocations
-SPI_DMA.elf SPI_DMA.map: $(OBJS) $(USER_OBJS) E:\Micro\ controller\STM\18_SPI_DMA\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SPI_DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Micro controller\STM\18_SPI_DMA\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SPI_DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+17_SPI_DMA.elf 17_SPI_DMA.map: $(OBJS) $(USER_OBJS) D:\STM32L476RGT6\17_SPI_DMA\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "17_SPI_DMA.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\STM32L476RGT6\17_SPI_DMA\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="17_SPI_DMA.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-SPI_DMA.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "SPI_DMA.list"
+17_SPI_DMA.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "17_SPI_DMA.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) SPI_DMA.elf SPI_DMA.list SPI_DMA.map default.size.stdout
+	-$(RM) 17_SPI_DMA.elf 17_SPI_DMA.list 17_SPI_DMA.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

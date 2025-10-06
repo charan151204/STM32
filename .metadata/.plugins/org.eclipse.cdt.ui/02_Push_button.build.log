@@ -1,0 +1,10 @@
+11:14:45 **** Incremental Build of configuration Debug for project 02_Push_button ****
+make -j8 all 
+arm-none-eabi-size  02_Push_button.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12464	     12	   1708	  14184	   3768	02_Push_button.elf
+Finished building: default.size.stdout
+ 
+
+11:14:45 Build Finished. 0 errors, 0 warnings. (took 305ms)
+

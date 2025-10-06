@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;06_SPI_POLLING/01_Blink_led.ioc&apos; to &apos;06_SPI_POLLING.ioc&apos;" description="Rename resource &apos;01_Blink_led.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="01_Blink_led.ioc" name="06_SPI_POLLING.ioc" stamp="1759128093461" updateReferences="true"/>
+</session>

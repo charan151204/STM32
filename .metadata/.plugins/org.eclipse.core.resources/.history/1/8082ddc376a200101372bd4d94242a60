@@ -1,0 +1,103 @@
+#include "main.h"
+#include <string.h>
+#include <stdio.h>
+
+SPI_HandleTypeDef hspi1;
+DMA_HandleTypeDef hdma_spi1_rx;
+DMA_HandleTypeDef hdma_spi1_tx;
+
+uint8_t tx_buffer[10] = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+uint8_t rx_buffer[10];
+
+volatile uint8_t spi_transfer_complete = 0; // Flag for DMA completion
+
+// Function prototypes
+void SystemClock_Config(void);
+static void MX_DMA_Init(void);
+static void MX_SPI1_Init(void);
+void Error_Handler(void);
+
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_DMA_Init();
+    MX_SPI1_Init();
+
+    while(1)
+    {
+        spi_transfer_complete = 0; // Reset flag
+
+        // Start SPI transmit/receive using DMA
+        if(HAL_SPI_TransmitReceive_DMA(&hspi1, tx_buffer, rx_buffer, 10) != HAL_OK)
+        {
+            Error_Handler();
+        }
+
+        // Wait for DMA transfer to complete
+        while(!spi_transfer_complete);
+
+        // Optional: check received data
+        for(int i = 0; i < 10; i++)
+        {
+            printf("Sent: %d, Received: %d\r\n", tx_buffer[i], rx_buffer[i]);
+        }
+
+        HAL_Delay(1000); // Wait 1 second before next transfer
+    }
+}
+
+// Callback called by HAL when SPI DMA transfer is complete
+void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+    if(hspi->Instance == SPI1)
+    {
+        spi_transfer_complete = 1; // Set flag
+    }
+}
+
+// Optional: error callback
+void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
+{
+    if(hspi->Instance == SPI1)
+    {
+        Error_Handler();
+    }
+}
+
+void SystemClock_Config(void)
+{
+    // Keep your existing clock configuration
+}
+
+static void MX_SPI1_Init(void)
+{
+    // Keep your existing SPI1 configuration
+}
+
+static void MX_DMA_Init(void)
+{
+    __HAL_RCC_DMA1_CLK_ENABLE();
+
+    HAL_NVIC_SetPriority(DMA1_Channel2_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(DMA1_Channel2_IRQn);
+    HAL_NVIC_SetPriority(DMA1_Channel3_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn);
+}
+
+// DMA interrupt handlers
+void DMA1_Channel2_IRQHandler(void)
+{
+    HAL_DMA_IRQHandler(hspi1.hdmatx);
+}
+
+void DMA1_Channel3_IRQHandler(void)
+{
+    HAL_DMA_IRQHandler(hspi1.hdmarx);
+}
+
+void Error_Handler(void)
+{
+    __disable_irq();
+    while(1);
+}

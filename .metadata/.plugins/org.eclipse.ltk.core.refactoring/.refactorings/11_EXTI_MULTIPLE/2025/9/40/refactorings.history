@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;11_EXTI_MULTIPLE/10_EXTI.ioc&apos; to &apos;11_EXTI_MULTIPLE.ioc&apos;" description="Rename resource &apos;10_EXTI.ioc&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="10_EXTI.ioc" name="11_EXTI_MULTIPLE.ioc" stamp="1759217004958" updateReferences="true"/>
+</session>

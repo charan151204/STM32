@@ -1,0 +1,10 @@
+11:04:54 **** Incremental Build of configuration Debug for project 03_USART_POLLING ****
+make -j8 all 
+arm-none-eabi-size  03_USART_POLLING.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15188	     12	   1724	  16924	   421c	03_USART_POLLING.elf
+Finished building: default.size.stdout
+ 
+
+11:04:55 Build Finished. 0 errors, 0 warnings. (took 330ms)
+
