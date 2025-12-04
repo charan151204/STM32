@@ -1,0 +1,10 @@
+../Core/Src/main.c:69:5:__io_putchar	16	static
+../Core/Src/main.c:75:6:task1Produce	16	static
+../Core/Src/main.c:88:6:task2Consumer	16	static
+../Core/Src/main.c:109:5:main	56	static
+../Core/Src/main.c:195:6:SystemClock_Config	96	static
+../Core/Src/main.c:246:13:MX_RTC_Init	32	static
+../Core/Src/main.c:310:13:MX_USART2_UART_Init	8	static
+../Core/Src/main.c:345:13:MX_GPIO_Init	48	static
+../Core/Src/main.c:390:6:StartDefaultTask	16	static
+../Core/Src/main.c:405:6:Error_Handler	4	static,ignoring_inline_asm
